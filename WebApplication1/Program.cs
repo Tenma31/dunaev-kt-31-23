@@ -1,5 +1,7 @@
 using NLog;
 using NLog.Web;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Database;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
@@ -14,6 +16,10 @@ try
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    // Регистрация DbContext с подключением к SQL Server
+    builder.Services.AddDbContext<StudentDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     var app = builder.Build();
 

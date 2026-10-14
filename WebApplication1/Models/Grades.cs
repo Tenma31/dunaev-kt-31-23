@@ -7,7 +7,7 @@
 
         public int StudentId { get; set; }
         public int DisciplineId { get; set; }
-        public Student Students { get; set; }
-        public Disciplines Disciplines { get; set; }
+        public Student? Student { get; set; }
+        public Disciplines? Discipline { get; set; }
     }
 }
