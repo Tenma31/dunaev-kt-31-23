@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Filters;
+using WebApplication1.Models;
 using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
@@ -31,5 +32,8 @@ namespace WebApplication1.Controllers
         [HttpGet("average-by-year/{year}")]
         public async Task<IActionResult> GetAverageByYear(int year, CancellationToken ct)
             => Ok(new { AverageGrade = await _gradesService.GetAverageGradeByYearAsync(year, ct) });
+        [HttpPost("add-or-update")]
+        public async Task<IActionResult> AddOrUpdateGrade([FromBody] Grades grade, CancellationToken ct)
+    => Ok(await _gradesService.AddOrUpdateGradeAsync(grade, ct));
     }
 }
