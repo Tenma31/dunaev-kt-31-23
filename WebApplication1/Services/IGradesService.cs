@@ -9,5 +9,7 @@ namespace WebApplication1.Services
         Task<double> GetAverageGradeByGroupAsync(string groupName, CancellationToken cancellationToken);
         Task<IEnumerable<Grades>> GetGradesByStudentAsync(int studentId, CancellationToken cancellationToken);
         Task<Grades> AddOrUpdateGradeAsync(Grades grade, CancellationToken cancellationToken);
+        Task<IEnumerable<string>> GetStudentGradesAsync(int studentId, CancellationToken ct);
+        Task<double> GetAverageGradeByYearAsync(int year, CancellationToken ct);
     }
 }

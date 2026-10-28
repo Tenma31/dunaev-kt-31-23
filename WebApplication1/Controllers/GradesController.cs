@@ -24,5 +24,12 @@ namespace WebApplication1.Controllers
             var result = await _gradesService.GetAverageGradeByGroupAsync(filter.GroupName, cancellationToken);
             return Ok(new { AverageGrade = result });
         }
+        [HttpGet("student/{studentId}")]
+        public async Task<IActionResult> GetStudentGrades(int studentId, CancellationToken ct)
+    => Ok(await _gradesService.GetStudentGradesAsync(studentId, ct));
+
+        [HttpGet("average-by-year/{year}")]
+        public async Task<IActionResult> GetAverageByYear(int year, CancellationToken ct)
+            => Ok(new { AverageGrade = await _gradesService.GetAverageGradeByYearAsync(year, ct) });
     }
 }

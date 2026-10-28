@@ -48,5 +48,22 @@ namespace WebApplication1.Services
             await _dbContext.SaveChangesAsync(cancellationToken);
             return grade;
         }
+        public async Task<IEnumerable<string>> GetStudentGradesAsync(int studentId, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Grades
+                .Where(g => g.StudentId == studentId)
+                .Select(g => g.Discipline.DisciplineName + ": " + g.GradeValue)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<double> GetAverageGradeByYearAsync(int year, CancellationToken cancellationToken)
+        {
+            // В нашей базе нет поля "год", поэтому берем всех студентов, чей курс = year
+            var grades = await _dbContext.Grades
+                .Where(g => g.Student.Groups.GroupCourse == year)
+                .ToListAsync(cancellationToken);
+
+            return grades.Any() ? grades.Average(g => g.GradeValue) : 0;
+        }
     }
 }
