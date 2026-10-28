@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Filters;
+using WebApplication1.Models;
 using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
@@ -30,5 +31,16 @@ namespace WebApplication1.Controllers
             var result = await _studentsService.GetSpecialtiesByStudentLastNameAsync(lastName, cancellationToken);
             return Ok(result);
         }
+        [HttpPost("add")]
+        public async Task<IActionResult> AddStudent([FromBody] Student student, CancellationToken ct)
+    => Ok(await _studentsService.AddStudentAsync(student, ct));
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateStudent([FromBody] Student student, CancellationToken ct)
+            => Ok(await _studentsService.UpdateStudentAsync(student, ct));
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteStudent(int id, CancellationToken ct)
+            => Ok(await _studentsService.DeleteStudentAsync(id, ct));
     }
 }

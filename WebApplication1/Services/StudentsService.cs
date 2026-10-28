@@ -14,7 +14,7 @@ namespace WebApplication1.Services
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Student>> GetStudentsAsync(StudentsFilter filter, CancellationToken cancellationToken)
+        public async Task<IEnumerable<string>> GetStudentsAsync(StudentsFilter filter, CancellationToken cancellationToken)
         {
             var query = _dbContext.Students.AsNoTracking();
 
@@ -33,7 +33,7 @@ namespace WebApplication1.Services
                 query = query.Where(s => s.StudentIsDeleted == filter.IsDeleted.Value);
             }
 
-            return await query.ToListAsync(cancellationToken);
+            return await query.Select(s => s.StudentLastName + " " + s.StudentFirstName).ToListAsync(cancellationToken);
         }
 
         public async Task<Student> AddStudentAsync(Student student, CancellationToken cancellationToken)
@@ -61,11 +61,11 @@ namespace WebApplication1.Services
         }
         public async Task<IEnumerable<string>> GetSpecialtiesByStudentLastNameAsync(string lastName, CancellationToken cancellationToken)
         {
-            // Ищем студентов с такой фамилией, заходим в их Группы, а оттуда в Специальности
+            
             var specialties = await _dbContext.Students
                 .Where(s => s.StudentLastName.ToLower().Contains(lastName.ToLower()))
-                .Select(s => s.Group.Specialty.SpecialtyTitle) // Достаем название специальности
-                .Distinct() // Чтобы не было дублей, если несколько студентов с этой фамилией учатся на одной специальности
+                .Select(s => s.Group.Specialty.SpecialtyTitle) 
+                .Distinct() 
                 .ToListAsync(cancellationToken);
 
             return specialties;
