@@ -18,16 +18,18 @@ namespace WebApplication1.Controllers
 
         [HttpPost("list")]
         public async Task<IActionResult> GetSpecialties([FromBody] SpecialtiesFilter filter, CancellationToken ct)
-        {
-            var result = await _specialtiesService.GetSpecialtiesAsync(filter, ct);
-            return Ok(result);
-        }
+            => Ok(await _specialtiesService.GetSpecialtiesAsync(filter, ct));
 
         [HttpPost("add")]
         public async Task<IActionResult> AddSpecialty([FromBody] Specialty specialty, CancellationToken ct)
-        {
-            var result = await _specialtiesService.AddSpecialtyAsync(specialty, ct);
-            return Ok(result);
-        }
+            => Ok(await _specialtiesService.AddSpecialtyAsync(specialty, ct));
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateSpecialty([FromBody] Specialty specialty, CancellationToken ct)
+            => Ok(await _specialtiesService.UpdateSpecialtyAsync(specialty, ct));
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteSpecialty(int id, CancellationToken ct)
+            => Ok(await _specialtiesService.DeleteSpecialtyAsync(id, ct));
     }
 }
