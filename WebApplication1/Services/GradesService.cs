@@ -60,7 +60,7 @@ namespace WebApplication1.Services
         {
             // В нашей базе нет поля "год", поэтому берем всех студентов, чей курс = year
             var grades = await _dbContext.Grades
-                .Where(g => g.Student.Groups.GroupCourse == year)
+                .Where(g => g.Student.Group.GroupCourse == year)
                 .ToListAsync(cancellationToken);
 
             return grades.Any() ? grades.Average(g => g.GradeValue) : 0;
