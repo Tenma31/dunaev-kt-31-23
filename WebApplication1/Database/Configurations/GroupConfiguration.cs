@@ -28,7 +28,7 @@ namespace WebApplication1.Database.Configurations
                 .HasColumnType(ColumnType.String)
                 .HasMaxLength(100)
                 .IsRequired();
-
+                
             builder.Property(group => group.GroupCourse)
                 .HasColumnName("c_group_course")
                 .HasColumnType(ColumnType.Int)
