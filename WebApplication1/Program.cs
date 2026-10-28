@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
-using Microsoft.EntityFrameworkCore;
+using WebApplication1;
 using WebApplication1.Database;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -20,6 +21,8 @@ try
     // Регистрация DbContext с подключением к SQL Server
     builder.Services.AddDbContext<StudentDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    builder.Services.AddServices();
 
     var app = builder.Build();
 
