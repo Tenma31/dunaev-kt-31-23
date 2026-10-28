@@ -22,7 +22,11 @@ try
     builder.Services.AddDbContext<StudentDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-    builder.Services.AddServices();
+    builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
     var app = builder.Build();
 
