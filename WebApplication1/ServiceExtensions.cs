@@ -10,7 +10,7 @@ namespace WebApplication1
             services.AddScoped<IStudentsService, StudentsService>();
             services.AddScoped<IDisciplinesService, DisciplinesService>();
             services.AddScoped<IGradesService, GradesService>();
-
+            services.AddScoped<ISpecialtiesService, SpecialtiesService>();
             return services;
         }
     }
