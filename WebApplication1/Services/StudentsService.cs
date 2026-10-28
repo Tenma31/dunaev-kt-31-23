@@ -20,7 +20,7 @@ namespace WebApplication1.Services
 
             if (!string.IsNullOrWhiteSpace(filter.GroupName))
             {
-                query = query.Where(s => s.Groups.GroupName.Contains(filter.GroupName));
+                query = query.Where(s => s.Group.GroupName.Contains(filter.GroupName));
             }
             if (!string.IsNullOrWhiteSpace(filter.StudentFio))
             {

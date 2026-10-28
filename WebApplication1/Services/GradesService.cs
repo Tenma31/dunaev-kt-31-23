@@ -24,7 +24,7 @@ namespace WebApplication1.Services
         public async Task<double> GetAverageGradeByGroupAsync(string groupName, CancellationToken cancellationToken)
         {
             return await _dbContext.Grades
-                .Where(g => g.Student.Groups.GroupName == groupName)
+                .Where(g => g.Student.Group.GroupName == groupName)
                 .AverageAsync(g => g.GradeValue, cancellationToken);
         }
 
