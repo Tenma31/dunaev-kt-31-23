@@ -21,5 +21,14 @@ namespace WebApplication1.Controllers
             var result = await _studentsService.GetStudentsAsync(filter, cancellationToken);
             return Ok(result);
         }
+        [HttpGet("specialties-by-lastname")]
+        public async Task<IActionResult> GetSpecialtiesByLastName([FromQuery] string lastName, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrWhiteSpace(lastName))
+                return BadRequest("Фамилия не может быть пустой");
+
+            var result = await _studentsService.GetSpecialtiesByStudentLastNameAsync(lastName, cancellationToken);
+            return Ok(result);
+        }
     }
 }

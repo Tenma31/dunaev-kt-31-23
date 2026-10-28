@@ -59,5 +59,16 @@ namespace WebApplication1.Services
             await _dbContext.SaveChangesAsync(cancellationToken);
             return true;
         }
+        public async Task<IEnumerable<string>> GetSpecialtiesByStudentLastNameAsync(string lastName, CancellationToken cancellationToken)
+        {
+            // Ищем студентов с такой фамилией, заходим в их Группы, а оттуда в Специальности
+            var specialties = await _dbContext.Students
+                .Where(s => s.StudentLastName.ToLower().Contains(lastName.ToLower()))
+                .Select(s => s.Group.Specialty.SpecialtyTitle) // Достаем название специальности
+                .Distinct() // Чтобы не было дублей, если несколько студентов с этой фамилией учатся на одной специальности
+                .ToListAsync(cancellationToken);
+
+            return specialties;
+        }
     }
 }

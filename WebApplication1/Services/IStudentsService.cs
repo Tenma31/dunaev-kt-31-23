@@ -9,5 +9,6 @@ namespace WebApplication1.Services
         Task<Student> AddStudentAsync(Student student, CancellationToken cancellationToken);
         Task<Student> UpdateStudentAsync(Student student, CancellationToken cancellationToken);
         Task<bool> DeleteStudentAsync(int id, CancellationToken cancellationToken);
+        Task<IEnumerable<string>> GetSpecialtiesByStudentLastNameAsync(string lastName, CancellationToken cancellationToken);
     }
 }
