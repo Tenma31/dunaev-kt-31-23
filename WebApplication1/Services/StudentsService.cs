@@ -55,7 +55,7 @@ namespace WebApplication1.Services
             var student = await _dbContext.Students.FindAsync(new object[] { id }, cancellationToken);
             if (student == null) return false;
 
-            student.StudentIsDeleted = true; // Мягкое удаление
+            student.StudentIsDeleted = true;
             await _dbContext.SaveChangesAsync(cancellationToken);
             return true;
         }
@@ -64,6 +64,7 @@ namespace WebApplication1.Services
             
             var specialties = await _dbContext.Students
                 .Where(s => s.StudentLastName.ToLower().Contains(lastName.ToLower()))
+                .Where(s => s.StudentIsDeleted == false)
                 .Select(s => s.Group.Specialty.SpecialtyTitle) 
                 .Distinct() 
                 .ToListAsync(cancellationToken);

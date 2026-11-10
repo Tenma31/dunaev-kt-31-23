@@ -3,7 +3,7 @@ using NLog;
 using NLog.Web;
 using WebApplication1;           // <-- Важно для AddServices
 using WebApplication1.Database;
-
+using WebApplication1.Middlewares;
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
 try
@@ -38,7 +38,7 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-
+    app.UseMiddleware<ExceptionHandlerMiddleware>();
     app.UseAuthorization();
     app.MapControllers();
 

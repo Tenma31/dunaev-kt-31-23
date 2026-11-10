@@ -42,5 +42,13 @@ namespace WebApplication1.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteStudent(int id, CancellationToken ct)
             => Ok(await _studentsService.DeleteStudentAsync(id, ct));
+        [HttpGet("test-error")]
+        public IActionResult TestError()
+        {
+            // Специально вызываем ошибку деления на ноль
+            int x = 0;
+            int result = 10 / x;
+            return Ok(result);
+        }
     }
 }
