@@ -1,4 +1,5 @@
-﻿namespace WebApplication1.Models
+﻿using System.Text.RegularExpressions;
+namespace WebApplication1.Models
 {
     public class Groups
     {
@@ -10,5 +11,10 @@
 
         public Specialty? Specialty { get; set; }
         public ICollection<Student>? Students { get; set; }
+
+        public bool IsValidGroupName()
+        {
+            return Regex.Match(GroupName, @"\D*-\d*-\d\d").Success;
+        }
     }
 }

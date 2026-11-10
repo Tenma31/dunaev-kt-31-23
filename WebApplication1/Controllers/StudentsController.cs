@@ -45,7 +45,6 @@ namespace WebApplication1.Controllers
         [HttpGet("test-error")]
         public IActionResult TestError()
         {
-            // Специально вызываем ошибку деления на ноль
             int x = 0;
             int result = 10 / x;
             return Ok(result);
