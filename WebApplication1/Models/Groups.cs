@@ -14,7 +14,7 @@ namespace WebApplication1.Models
 
         public bool IsValidGroupName()
         {
-            return Regex.Match(GroupName, @"\D*-\d*-\d\d").Success;
+            return Regex.IsMatch(GroupName ?? string.Empty, @"^\d{2}\.\d{2}\.\d{2}$");
         }
     }
 }

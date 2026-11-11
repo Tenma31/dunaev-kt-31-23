@@ -30,7 +30,13 @@ namespace WebApplication1.Services
             }
             if (filter.IsDeleted.HasValue)
             {
+                // Если пользователь явно указал true или false — фильтруем по нему
                 query = query.Where(s => s.StudentIsDeleted == filter.IsDeleted.Value);
+            }
+            else
+            {
+                // Если пользователь НЕ указал фильтр — показываем только активных
+                query = query.Where(s => s.StudentIsDeleted == false);
             }
 
             return await query.Select(s => s.StudentLastName + " " + s.StudentFirstName).ToListAsync(cancellationToken);

@@ -18,18 +18,16 @@ namespace WebApplication1.Middlewares
         {
             try
             {
-                // Пропускаем запрос дальше по цепочке (к контроллерам)
+
                 await _next(context);
             }
             catch (Exception exception)
             {
-                // Если произошла ошибка, логируем её
                 _logger.LogError(exception, "Произошла необработанная ошибка");
 
                 var httpResponse = context.Response;
                 httpResponse.ContentType = "application/json";
 
-                // Формируем красивый ответ для клиента
                 var responseModel = new ResponseModel<object>
                 {
                     Succeeded = false,
@@ -39,13 +37,11 @@ namespace WebApplication1.Middlewares
 
                 httpResponse.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                // Записываем JSON в ответ
                 await httpResponse.WriteAsJsonAsync(responseModel);
             }
         }
     }
 
-    // Класс для красивого вывода ответа
     public class ResponseModel<T>
     {
         public bool Succeeded { get; set; }
